@@ -1,0 +1,2 @@
+yay -Sy vulkan-{tools,devel}
+yay -Sy glfw-wayland
