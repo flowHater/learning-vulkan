@@ -9,6 +9,18 @@ namespace lve
 {
     struct PipelineConfigInfo
     {
+        VkViewport viewport;
+        VkRect2D scissor;
+        VkPipelineViewportStateCreateInfo viewportInfo;
+        VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
+        VkPipelineRasterizationStateCreateInfo rasterizationInfo;
+        VkPipelineMultisampleStateCreateInfo multisamplingInfo;
+        VkPipelineColorBlendAttachmentState colorBlendAttachment;
+        VkPipelineColorBlendStateCreateInfo colorBlendInfo;
+        VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+        VkPipelineLayout pipelineLayout = nullptr;
+        VkRenderPass renderPass = nullptr;
+        uint32_t subpass = 0;
     };
     class LvePipeline
     {
@@ -18,7 +30,7 @@ namespace lve
             const std::string &vertFilePath,
             const std::string &fragFilePath,
             const PipelineConfigInfo &configInfo);
-        ~LvePipeline() {}
+        ~LvePipeline();
 
         LvePipeline(const LvePipeline &) = delete;
         void operator=(const LvePipeline &) = delete;
@@ -28,7 +40,7 @@ namespace lve
     private:
         static std::vector<char> readFile(const std::string &filePath);
 
-        void createGraphicsPipeline(const std::string &vertFilePath, const std::string &fragFilePath);
+        void createGraphicsPipeline(const std::string &vertFilePath, const std::string &fragFilePath, const PipelineConfigInfo &configInfo);
 
         LveDevice &lveDevice;
         VkPipeline graphicsPipeline;
