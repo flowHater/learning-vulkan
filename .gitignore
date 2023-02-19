@@ -1,2 +1,3 @@
 VulkanEngine
 shaders/*.spv
+src/**/*.o
