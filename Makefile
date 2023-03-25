@@ -19,6 +19,8 @@ src = src/app.cpp \
 	src/lve_pipeline.cpp \
 	src/lve_swap_chain.cpp \
 	src/lve_window.cpp \
+	src/lve_renderer.cpp \
+	src/simple_render_system.cpp \
 	src/main.cpp
 
 obj = $(src:.cpp=.o)
