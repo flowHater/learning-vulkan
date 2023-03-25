@@ -1,10 +1,20 @@
 #include "app.hpp"
 
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_ZERO_TO_ONE
+#include <glm/glm.hpp>
+
 #include <stdexcept>
 #include <array>
 
 namespace lve
 {
+    struct SimplePushConstantData
+    {
+        glm::vec2 offset;
+        alignas(16) glm::vec3 color;
+    };
+
     App::App()
     {
         loadModels();
@@ -41,13 +51,18 @@ namespace lve
 
     void App::createPipelineLayout()
     {
+        VkPushConstantRange pushConstantRange{};
+        pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+        pushConstantRange.size = sizeof(SimplePushConstantData);
+        pushConstantRange.offset = 0;
+
         VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 
         pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
         pipelineLayoutInfo.setLayoutCount = 0;
         pipelineLayoutInfo.pSetLayouts = nullptr;
-        pipelineLayoutInfo.pushConstantRangeCount = 0;
-        pipelineLayoutInfo.pPushConstantRanges = nullptr;
+        pipelineLayoutInfo.pushConstantRangeCount = 1;
+        pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
 
         if (vkCreatePipelineLayout(lveDevice.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS)
         {
@@ -120,6 +135,8 @@ namespace lve
 
     void App::recordCommandBuffer(int imageIndex)
     {
+        static int frame = 0;
+        frame = (frame + 1) % 1000;
 
         VkCommandBufferBeginInfo beginInfo = {};
         beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
@@ -159,7 +176,15 @@ namespace lve
 
         lvePipeline->bind(commandBuffers[imageIndex]);
         lveModel->bind(commandBuffers[imageIndex]);
+        for (int j = 0; j < 4; j++)
+        {
+            SimplePushConstantData push{};
+            push.offset = {-0.5f + 0.002f * frame, -0.4f + j * 0.25f};
+            push.color = {0.0f, 0.0f, 0.2f + 0.2f * j};
 
+            vkCmdPushConstants(commandBuffers[imageIndex], pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(SimplePushConstantData), &push);
+            lveModel->draw(commandBuffers[imageIndex]);
+        }
         vkCmdEndRenderPass(commandBuffers[imageIndex]);
 
         if (vkEndCommandBuffer(commandBuffers[imageIndex]) != VK_SUCCESS)
