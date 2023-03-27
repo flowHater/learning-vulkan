@@ -17,7 +17,7 @@ namespace lve
         LveWindow(const LveWindow &) = delete;
         LveWindow &operator=(const LveWindow &) = delete;
 
-        bool shouldClose() { return glfwWindowShouldClose(window); }
+        bool shouldClose() { return glfwWindowShouldClose(window) || glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS; }
         VkExtent2D getExtend() { return {static_cast<uint32_t>(width), static_cast<uint32_t>(height)}; }
         bool wasWindowResized() { return isFrameBufferResized; }
         void resetIsFrameBufferResized() { isFrameBufferResized = false; }
