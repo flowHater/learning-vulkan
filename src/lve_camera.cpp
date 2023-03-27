@@ -81,10 +81,10 @@ namespace lve
         viewMatrix[3][1] = -glm::dot(v, position);
         viewMatrix[3][2] = -glm::dot(w, position);
 
-        std::cout << viewMatrix[0][0] << "|" << viewMatrix[1][0] << "|" << viewMatrix[2][0] << "|" << viewMatrix[3][0] << std::endl
-                  << viewMatrix[0][1] << "|" << viewMatrix[1][1] << "|" << viewMatrix[2][1] << "|" << viewMatrix[3][1] << std::endl
-                  << viewMatrix[0][2] << "|" << viewMatrix[1][2] << "|" << viewMatrix[2][2] << "|" << viewMatrix[3][2] << std::endl
-                  << std::endl;
+        // std::cout << viewMatrix[0][0] << "|" << viewMatrix[1][0] << "|" << viewMatrix[2][0] << "|" << viewMatrix[3][0] << std::endl
+        //           << viewMatrix[0][1] << "|" << viewMatrix[1][1] << "|" << viewMatrix[2][1] << "|" << viewMatrix[3][1] << std::endl
+        //           << viewMatrix[0][2] << "|" << viewMatrix[1][2] << "|" << viewMatrix[2][2] << "|" << viewMatrix[3][2] << std::endl
+        //           << std::endl;
     }
 
 }

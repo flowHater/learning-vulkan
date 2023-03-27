@@ -1,6 +1,6 @@
 NAME=VulkanEngine
 
-CFLAGS = -std=c++17 -O2 --all-warnings -Werror -Wall
+CFLAGS = -std=c++17 -O2 --all-warnings -Werror -Wall  -Ivendors/tiny_obj_loader
 LDFLAGS = -ldl -lpthread
 
 LibsFlags = `pkg-config --libs glfw3 vulkan`
