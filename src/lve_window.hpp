@@ -23,6 +23,20 @@ namespace lve
         void resetIsFrameBufferResized() { isFrameBufferResized = false; }
         GLFWwindow *getWindow() const { return window; }
 
+        void captureTheMouse() const
+        {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            if (glfwRawMouseMotionSupported())
+                glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+        };
+
+        void releaseTheMouse() const
+        {
+            if (glfwRawMouseMotionSupported())
+                glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        };
+
         void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
 
     private:

@@ -66,16 +66,30 @@ namespace lve
 
     void App::loadGameObjects()
     {
-        std::string path = "models/smooth_vase.obj";
-        std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, path);
+        {
+            std::string path = "models/flat_vase.obj";
+            std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, path);
 
-        auto cube = LveGameObject::createGameObject();
+            auto obj = LveGameObject::createGameObject();
 
-        cube.model = lveModel;
-        cube.transform.translation = {.0f, .0f, 2.5f};
-        cube.transform.scale = glm::vec3{3.f};
+            obj.model = lveModel;
+            obj.transform.translation = {.5f, .5f, 2.5f};
+            obj.transform.scale = glm::vec3{1.f, 0.5f, 1.f};
 
-        gameObjects.push_back(std::move(cube));
+            gameObjects.push_back(std::move(obj));
+        }
+
+        {
+            std::string path = "models/smooth_vase.obj";
+            std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, path);
+            auto obj = LveGameObject::createGameObject();
+
+            obj.model = lveModel;
+            obj.transform.translation = {-.5f, 0.5f, 2.5f};
+            obj.transform.scale = glm::vec3{1.f, 0.5f, 1.f};
+
+            gameObjects.push_back(std::move(obj));
+        }
     }
 
 }
