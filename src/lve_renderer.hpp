@@ -23,6 +23,7 @@ namespace lve
         VkRenderPass getSwapchainRenderPass() const { return lveSwapChain->getRenderPass(); }
         float getAspectRatio() const { return lveSwapChain->extentAspectRatio(); }
         bool isFrameInProgress() const { return isFrameStarted; };
+        size_t swapChainImageCount() { return lveSwapChain->imageCount(); }
 
         VkCommandBuffer getCurrentCommandBuffer() const
         {
