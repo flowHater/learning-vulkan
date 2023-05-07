@@ -24,6 +24,7 @@ src = src/app.cpp \
 	src/lve_camera.cpp \
 	src/lve_game_object.cpp \
 	src/lve_buffer.cpp \
+	src/lve_descriptors.cpp\
 	src/keyboard_movement_controller.cpp \
 	src/main.cpp
 
