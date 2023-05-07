@@ -53,7 +53,7 @@ namespace lve
         }
 
         auto globalSetLayout = LveDescriptorSetLayout::Builder(lveDevice)
-                                   .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT)
+                                   .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_ALL_GRAPHICS)
                                    .build();
 
         std::vector<VkDescriptorSet> globalDescriptorSets(lveRenderer.swapChainImageCount());
@@ -100,7 +100,8 @@ namespace lve
                     frameTime,
                     commandBuffer,
                     camera,
-                    globalDescriptorSets[frameIndex]};
+                    globalDescriptorSets[frameIndex],
+                    gameObjects};
                 // update
                 GlobalUbo ubo{};
                 ubo.projectionView = camera.getProjection() * camera.getView();
@@ -110,7 +111,7 @@ namespace lve
                 // render
                 lveRenderer.beginSwapChainRenderPass(commandBuffer);
 
-                system.renderGameObjects(frameInfo, gameObjects);
+                system.renderGameObjects(frameInfo);
 
                 lveRenderer.endSwapChainRenderPass(commandBuffer);
                 lveRenderer.endFrame();
@@ -132,7 +133,7 @@ namespace lve
             obj.transform.translation = {.5f, .5f, 0.f};
             obj.transform.scale = glm::vec3{1.f, 0.5f, 1.f};
 
-            gameObjects.push_back(std::move(obj));
+            gameObjects.emplace(obj.get_id(), std::move(obj));
         }
 
         {
@@ -144,7 +145,7 @@ namespace lve
             obj.transform.translation = {-.5f, 0.5f, 0.f};
             obj.transform.scale = glm::vec3{1.f, 0.5f, 1.f};
 
-            gameObjects.push_back(std::move(obj));
+            gameObjects.emplace(obj.get_id(), std::move(obj));
         }
 
         {
@@ -156,7 +157,7 @@ namespace lve
             obj.transform.translation = {-0.f, 0.5f, 0.f};
             obj.transform.scale = glm::vec3{3.f, 1.f, 3.f};
 
-            gameObjects.push_back(std::move(obj));
+            gameObjects.emplace(obj.get_id(), std::move(obj));
         }
     }
 
