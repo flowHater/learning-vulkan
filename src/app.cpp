@@ -33,15 +33,17 @@ namespace lve
 
     void App::run()
     {
-        LveBuffer globalUboBuffer{
-            lveDevice,
-            sizeof(GlobalUbo),
-            lveRenderer.swapChainImageCount(),
-            VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
-            lveDevice.properties.limits.minUniformBufferOffsetAlignment};
-
-        globalUboBuffer.map();
+        std::vector<std::unique_ptr<LveBuffer>> uboBuffers(lveRenderer.swapChainImageCount());
+        for (int i = 0; i < uboBuffers.size(); i++)
+        {
+            uboBuffers[i] = std::make_unique<LveBuffer>(
+                lveDevice,
+                sizeof(GlobalUbo),
+                1,
+                VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+                VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
+            uboBuffers[i]->map();
+        }
 
         SimpleRenderSystem system{lveDevice, lveRenderer.getSwapchainRenderPass()};
         LveCamera camera{};
@@ -69,6 +71,7 @@ namespace lve
             if (auto commandBuffer = lveRenderer.beginFrame())
             {
                 int frameIndex = lveRenderer.getFrameIndex();
+
                 FrameInfo frameInfo{
                     frameIndex,
                     frameTime,
@@ -77,8 +80,8 @@ namespace lve
                 // update
                 GlobalUbo ubo{};
                 ubo.projectionView = camera.getProjection() * camera.getView();
-                globalUboBuffer.writeToIndex(&ubo, frameIndex);
-                globalUboBuffer.flushIndex(frameIndex);
+                uboBuffers[frameIndex]->writeToBuffer(&ubo);
+                uboBuffers[frameIndex]->flush();
 
                 // render
                 lveRenderer.beginSwapChainRenderPass(commandBuffer);
