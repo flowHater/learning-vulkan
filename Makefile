@@ -1,14 +1,17 @@
 NAME=VulkanEngine
 
-CFLAGS = -std=c++17 -O2 --all-warnings -Werror -Wall  -Ivendors/tiny_obj_loader
+CFLAGS = -std=c++17 -O2 --all-warnings -Werror -Wall  -Ivendors/tiny_obj_loader -Isrc
 LDFLAGS = -ldl -lpthread
 
 LibsFlags = `pkg-config --libs glfw3 vulkan`
 
 compiler=clang++
 
-frag_shaders = shaders/simple_shader.frag
-vert_shaders = shaders/simple_shader.vert
+frag_shaders = shaders/simple_shader.frag \
+	shaders/point_light.frag
+vert_shaders = shaders/simple_shader.vert \
+	shaders/point_light.vert
+
 
 compiled_frag_shaders = $(frag_shaders:.frag=.frag.spv)
 compiled_vert_shaders = $(vert_shaders:.vert=.vert.spv)
@@ -20,7 +23,8 @@ src = src/app.cpp \
 	src/lve_swap_chain.cpp \
 	src/lve_window.cpp \
 	src/lve_renderer.cpp \
-	src/simple_render_system.cpp \
+	src/systems/simple_render_system.cpp \
+	src/systems/point_light_system.cpp \
 	src/lve_camera.cpp \
 	src/lve_game_object.cpp \
 	src/lve_buffer.cpp \
