@@ -7,6 +7,7 @@
 
 #include <stdexcept>
 #include <array>
+#include <iostream>
 
 namespace lve
 {
@@ -78,6 +79,7 @@ namespace lve
             push.modelMatrix = obj.transform.mat4();
             push.normalMatrix = obj.transform.normalMatrix();
 
+            // std::cout << "vkCmdPushConstants(frameInfo.commandBuffer" << std::endl;
             vkCmdPushConstants(frameInfo.commandBuffer,
                                pipelineLayout,
                                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
@@ -85,7 +87,9 @@ namespace lve
                                sizeof(SimplePushConstantData),
                                &push);
 
+            // std::cout << "obj.model->bind" << std::endl;
             obj.model->bind(frameInfo.commandBuffer);
+            // std::cout << "obj.model->draw" << std::endl;
             obj.model->draw(frameInfo.commandBuffer);
         }
     }
