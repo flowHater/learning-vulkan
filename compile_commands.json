@@ -1,0 +1,287 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/app.o",
+      "src/app.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/app.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/app.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/lve_device.o",
+      "src/lve_device.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_device.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_device.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/lve_model.o",
+      "src/lve_model.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_model.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_model.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/lve_pipeline.o",
+      "src/lve_pipeline.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_pipeline.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_pipeline.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/lve_swap_chain.o",
+      "src/lve_swap_chain.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_swap_chain.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_swap_chain.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/lve_window.o",
+      "src/lve_window.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_window.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_window.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/lve_renderer.o",
+      "src/lve_renderer.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_renderer.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_renderer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/systems/simple_render_system.o",
+      "src/systems/simple_render_system.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/systems/simple_render_system.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/systems/simple_render_system.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/systems/point_light_system.o",
+      "src/systems/point_light_system.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/systems/point_light_system.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/systems/point_light_system.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/lve_camera.o",
+      "src/lve_camera.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_camera.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_camera.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/lve_game_object.o",
+      "src/lve_game_object.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_game_object.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_game_object.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/lve_buffer.o",
+      "src/lve_buffer.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_buffer.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_buffer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/lve_descriptors.o",
+      "src/lve_descriptors.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_descriptors.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/lve_descriptors.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/keyboard_movement_controller.o",
+      "src/keyboard_movement_controller.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/keyboard_movement_controller.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/keyboard_movement_controller.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-std=c++17",
+      "-O2",
+      "--all-warnings",
+      "-Werror",
+      "-Wall",
+      "-Ivendors/tiny_obj_loader",
+      "-Isrc",
+      "-c",
+      "-o",
+      "src/main.o",
+      "src/main.cpp"
+    ],
+    "directory": "/home/pmartin/Src/vulkan/learning-vulkan",
+    "file": "/home/pmartin/Src/vulkan/learning-vulkan/src/main.cpp",
+    "output": "/home/pmartin/Src/vulkan/learning-vulkan/src/main.o"
+  }
+]
