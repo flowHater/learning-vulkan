@@ -1,19 +1,19 @@
 #include "app.hpp"
 
-#include "systems/simple_render_system.hpp"
-#include "systems/point_light_system.hpp"
-#include "lve_camera.hpp"
 #include "keyboard_movement_controller.hpp"
+#include "lve_camera.hpp"
+#include "systems/point_light_system.hpp"
+#include "systems/simple_render_system.hpp"
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_ZERO_TO_ONE
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 
-#include <stdexcept>
 #include <array>
 #include <chrono>
 #include <iostream>
+#include <stdexcept>
 
 namespace lve
 {
@@ -59,14 +59,14 @@ namespace lve
                 .build(globalDescriptorSets[i]);
         }
 
-        SimpleRenderSystem system{lveDevice, lveRenderer.getSwapchainRenderPass(), globalSetLayout->getDescriptorSetLayout()};
-        PointLightSystem pointLightSystem{lveDevice, lveRenderer.getSwapchainRenderPass(), globalSetLayout->getDescriptorSetLayout()};
-        LveCamera camera{};
+        SimpleRenderSystem system { lveDevice, lveRenderer.getSwapchainRenderPass(), globalSetLayout->getDescriptorSetLayout() };
+        PointLightSystem pointLightSystem { lveDevice, lveRenderer.getSwapchainRenderPass(), globalSetLayout->getDescriptorSetLayout() };
+        LveCamera camera {};
         camera.setViewDirection(glm::vec3(0.f), glm::vec3(0.5f, 0.f, 1.f));
 
         auto viewerObject = LveGameObject::createGameObject();
         viewerObject.transform.translation.z = -2.5f;
-        KeyboardMovementController cameraController{};
+        KeyboardMovementController cameraController {};
 
         auto currentTime = std::chrono::high_resolution_clock::now();
 
@@ -88,15 +88,16 @@ namespace lve
             {
                 int frameIndex = lveRenderer.getFrameIndex();
 
-                FrameInfo frameInfo{
+                FrameInfo frameInfo {
                     frameIndex,
                     frameTime,
                     commandBuffer,
                     camera,
                     globalDescriptorSets[frameIndex],
-                    gameObjects};
+                    gameObjects
+                };
                 // update
-                GlobalUbo ubo{};
+                GlobalUbo ubo {};
                 ubo.projection = camera.getProjection();
                 ubo.view = camera.getView();
                 ubo.inverseView = camera.getInverseView();
@@ -127,8 +128,8 @@ namespace lve
             auto obj = LveGameObject::createGameObject();
 
             obj.model = lveModel;
-            obj.transform.translation = {-.5f, .5f, 0.f};
-            obj.transform.scale = {3.f, 1.5f, 3.f};
+            obj.transform.translation = { -.5f, .5f, 0.f };
+            obj.transform.scale = { 3.f, 1.5f, 3.f };
 
             gameObjects.emplace(obj.get_id(), std::move(obj));
         }
@@ -139,8 +140,8 @@ namespace lve
             auto obj = LveGameObject::createGameObject();
 
             obj.model = lveModel;
-            obj.transform.translation = {.5f, .5f, 0.f};
-            obj.transform.scale = {3.f, 1.5f, 3.f};
+            obj.transform.translation = { .5f, .5f, 0.f };
+            obj.transform.scale = { 3.f, 1.5f, 3.f };
 
             gameObjects.emplace(obj.get_id(), std::move(obj));
         }
@@ -151,27 +152,27 @@ namespace lve
             auto obj = LveGameObject::createGameObject();
 
             obj.model = lveModel;
-            obj.transform.translation = {-0.f, 0.5f, 0.f};
-            obj.transform.scale = glm::vec3{3.f, 1.f, 3.f};
+            obj.transform.translation = { -0.f, 0.5f, 0.f };
+            obj.transform.scale = glm::vec3 { 3.f, 1.f, 3.f };
 
             gameObjects.emplace(obj.get_id(), std::move(obj));
         }
 
         {
-            std::vector<glm::vec3> lightColors{
-                {1.f, .1f, .1f},
-                {.1f, .1f, 1.f},
-                {.1f, 1.f, .1f},
-                {1.f, 1.f, .1f},
-                {.1f, 1.f, 1.f},
-                {1.f, 1.f, 1.f} //
+            std::vector<glm::vec3> lightColors {
+                { 1.f, .1f, .1f },
+                { .1f, .1f, 1.f },
+                { .1f, 1.f, .1f },
+                { 1.f, 1.f, .1f },
+                { .1f, 1.f, 1.f },
+                { 1.f, 1.f, 1.f } //
             };
             for (int i = 0; i < lightColors.size(); i++)
             {
                 auto pointLight = LveGameObject::makePointLight(0.2f);
                 pointLight.color = lightColors[i];
                 auto rotateLight = glm::rotate(glm::mat4(1.f),
-                                               (i * glm::two_pi<float>() / lightColors.size()), {0.f, -1.f, 0.f});
+                    (i * glm::two_pi<float>() / lightColors.size()), { 0.f, -1.f, 0.f });
                 pointLight.transform.translation = glm::vec3(rotateLight * glm::vec4(-1.f, -1.f, -1.f, 1.0f));
                 gameObjects.emplace(pointLight.get_id(), std::move(pointLight));
             }

@@ -2,7 +2,10 @@
 
 namespace lve
 {
-    LveWindow::LveWindow(int w, int h, std::string name) : width{w}, height{h}, windowName{name}
+    LveWindow::LveWindow(int w, int h, std::string name)
+        : width { w }
+        , height { h }
+        , windowName { name }
     {
         initWindow();
     }
@@ -34,7 +37,7 @@ namespace lve
         glfwSetFramebufferSizeCallback(window, frameBufferResizedCallback);
     }
 
-    void LveWindow::createWindowSurface(VkInstance instance, VkSurfaceKHR *surface)
+    void LveWindow::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface)
     {
         if (glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS)
         {
@@ -42,9 +45,9 @@ namespace lve
         }
     }
 
-    void LveWindow::frameBufferResizedCallback(GLFWwindow *window, int width, int height)
+    void LveWindow::frameBufferResizedCallback(GLFWwindow* window, int width, int height)
     {
-        auto lveWindow = reinterpret_cast<LveWindow *>(glfwGetWindowUserPointer(window));
+        auto lveWindow = reinterpret_cast<LveWindow*>(glfwGetWindowUserPointer(window));
         lveWindow->width = width;
         lveWindow->height = height;
         lveWindow->isFrameBufferResized = true;

@@ -5,23 +5,24 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 
-#include <stdexcept>
 #include <array>
 #include <map>
+#include <stdexcept>
 
 namespace lve
 {
 
     struct PointLightPushConstants
     {
-        glm::vec4 position{};
-        glm::vec4 color{};
-        float radius{};
+        glm::vec4 position {};
+        glm::vec4 color {};
+        float radius {};
     };
 
     void update(FrameInfo& frameInfo, GlobalUbo& ubo);
 
-    PointLightSystem::PointLightSystem(LveDevice& device, VkRenderPass pass, VkDescriptorSetLayout globalSetLayout) : lveDevice{ device }
+    PointLightSystem::PointLightSystem(LveDevice& device, VkRenderPass pass, VkDescriptorSetLayout globalSetLayout)
+        : lveDevice { device }
     {
         createPipelineLayout(globalSetLayout);
         createPipeline(pass);
@@ -34,14 +35,14 @@ namespace lve
 
     void PointLightSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayout)
     {
-        VkPushConstantRange pushConstantRange{};
+        VkPushConstantRange pushConstantRange {};
         pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
         pushConstantRange.size = sizeof(PointLightPushConstants);
         pushConstantRange.offset = 0;
 
-        std::vector<VkDescriptorSetLayout> descriptorSetLayouts{ globalSetLayout };
+        std::vector<VkDescriptorSetLayout> descriptorSetLayouts { globalSetLayout };
 
-        VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
+        VkPipelineLayoutCreateInfo pipelineLayoutInfo {};
 
         pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
         pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(descriptorSetLayouts.size());
@@ -59,7 +60,7 @@ namespace lve
     {
         assert(pipelineLayout != nullptr && "cannot create pipeline before pipelineLayout");
 
-        PipelineConfigInfo pipelineConfig{};
+        PipelineConfigInfo pipelineConfig {};
         LvePipeline::defaultPipelineConfigInfo(pipelineConfig);
         LvePipeline::enableAlphaBlending(pipelineConfig);
 
@@ -116,7 +117,7 @@ namespace lve
         {
             auto& obj = frameInfo.gameObjects.at(it->second);
 
-            PointLightPushConstants push{};
+            PointLightPushConstants push {};
             push.position = glm::vec4(obj.transform.translation, 1.f);
             push.color = glm::vec4(obj.color, obj.pointLight->lightIntensity);
             push.radius = obj.transform.scale.x;

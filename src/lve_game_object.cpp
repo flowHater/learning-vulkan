@@ -12,7 +12,7 @@ namespace lve
         const float c1 = glm::cos(rotation.y);
         const float s1 = glm::sin(rotation.y);
 
-        return glm::mat4{
+        return glm::mat4 {
             {
                 scale.x * (c1 * c3 + s1 * s2 * s3),
                 scale.x * (c2 * s3),
@@ -31,7 +31,8 @@ namespace lve
                 scale.z * (c1 * c2),
                 0.0f,
             },
-            {translation.x, translation.y, translation.z, 1.0f}};
+            { translation.x, translation.y, translation.z, 1.0f }
+        };
     }
 
     glm::mat3 TransformComponent::normalMatrix()
@@ -44,7 +45,7 @@ namespace lve
         const float s1 = glm::sin(rotation.y);
         const glm::vec3 invScale = 1.0f / scale;
 
-        return glm::mat3{
+        return glm::mat3 {
             {
                 invScale.x * (c1 * c3 + s1 * s2 * s3),
                 invScale.x * (c2 * s3),

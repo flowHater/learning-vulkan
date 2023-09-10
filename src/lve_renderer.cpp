@@ -1,12 +1,14 @@
 #include "lve_renderer.hpp"
 
-#include <stdexcept>
 #include <array>
 #include <iostream>
+#include <stdexcept>
 
 namespace lve
 {
-    LveRenderer::LveRenderer(LveWindow &window, LveDevice &device) : lveWindow{window}, lveDevice{device}
+    LveRenderer::LveRenderer(LveWindow& window, LveDevice& device)
+        : lveWindow { window }
+        , lveDevice { device }
     {
         recreateSwapChain();
         createCommandBuffers();
@@ -47,7 +49,7 @@ namespace lve
     void LveRenderer::createCommandBuffers()
     {
         commandBuffers.resize(lveSwapChain->imageCount());
-        VkCommandBufferAllocateInfo allocInfo{};
+        VkCommandBufferAllocateInfo allocInfo {};
         allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
         allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
         allocInfo.commandPool = lveDevice.getCommandPool();
@@ -134,12 +136,12 @@ namespace lve
         renderPassInfo.renderPass = lveSwapChain->getRenderPass();
         renderPassInfo.framebuffer = lveSwapChain->getFrameBuffer(currentImageIndex);
 
-        renderPassInfo.renderArea.offset = {0, 0};
+        renderPassInfo.renderArea.offset = { 0, 0 };
         renderPassInfo.renderArea.extent = lveSwapChain->getSwapChainExtent();
 
-        std::array<VkClearValue, 2> clearValues{};
-        clearValues[0].color = {{0.01f, 0.01f, 0.01f, 1.0f}};
-        clearValues[1].depthStencil = {1.0f, 0};
+        std::array<VkClearValue, 2> clearValues {};
+        clearValues[0].color = { { 0.01f, 0.01f, 0.01f, 1.0f } };
+        clearValues[1].depthStencil = { 1.0f, 0 };
 
         renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
         renderPassInfo.pClearValues = clearValues.data();
@@ -153,7 +155,7 @@ namespace lve
         viewport.height = static_cast<float>(lveSwapChain->getSwapChainExtent().height);
         viewport.minDepth = 0.0f;
         viewport.maxDepth = 1.0f;
-        VkRect2D scisor{{0, 0}, lveSwapChain->getSwapChainExtent()};
+        VkRect2D scisor { { 0, 0 }, lveSwapChain->getSwapChainExtent() };
         vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
         vkCmdSetScissor(commandBuffer, 0, 1, &scisor);
     }

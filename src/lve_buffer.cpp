@@ -33,17 +33,17 @@ namespace lve
     }
 
     LveBuffer::LveBuffer(
-        LveDevice &device,
+        LveDevice& device,
         VkDeviceSize instanceSize,
         size_t instanceCount,
         VkBufferUsageFlags usageFlags,
         VkMemoryPropertyFlags memoryPropertyFlags,
         VkDeviceSize minOffsetAlignment)
-        : lveDevice{device},
-          instanceSize{instanceSize},
-          instanceCount{instanceCount},
-          usageFlags{usageFlags},
-          memoryPropertyFlags{memoryPropertyFlags}
+        : lveDevice { device }
+        , instanceSize { instanceSize }
+        , instanceCount { instanceCount }
+        , usageFlags { usageFlags }
+        , memoryPropertyFlags { memoryPropertyFlags }
     {
         alignmentSize = getAlignment(instanceSize, minOffsetAlignment);
         bufferSize = alignmentSize * instanceCount;
@@ -95,7 +95,7 @@ namespace lve
      * @param offset (Optional) Byte offset from beginning of mapped region
      *
      */
-    void LveBuffer::writeToBuffer(void *data, VkDeviceSize size, VkDeviceSize offset)
+    void LveBuffer::writeToBuffer(void* data, VkDeviceSize size, VkDeviceSize offset)
     {
         assert(mapped && "Cannot copy to unmapped buffer");
 
@@ -105,7 +105,7 @@ namespace lve
         }
         else
         {
-            char *memOffset = (char *)mapped;
+            char* memOffset = (char*)mapped;
             memOffset += offset;
             memcpy(memOffset, data, size);
         }
@@ -163,7 +163,7 @@ namespace lve
      */
     VkDescriptorBufferInfo LveBuffer::descriptorInfo(VkDeviceSize size, VkDeviceSize offset)
     {
-        return VkDescriptorBufferInfo{
+        return VkDescriptorBufferInfo {
             buffer,
             offset,
             size,
@@ -177,7 +177,7 @@ namespace lve
      * @param index Used in offset calculation
      *
      */
-    void LveBuffer::writeToIndex(void *data, int index)
+    void LveBuffer::writeToIndex(void* data, int index)
     {
         writeToBuffer(data, instanceSize, index * alignmentSize);
     }
