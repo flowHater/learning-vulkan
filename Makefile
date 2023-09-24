@@ -1,8 +1,12 @@
 NAME=VulkanEngine
 
-CFLAGS = -std=c++17 -O2 --all-warnings -Werror -Wall  -Ivendors/tiny_obj_loader -Isrc
-LDFLAGS = -ldl -lpthread
+CFLAGS = -std=c++17 -O2 --all-warnings -Werror -Wall
+SRCFLAGS = -Isrc
+VENDORSFLAGS = -Ivendors/tiny_obj_loader
+IMGUIFLAGS = -Iimgui -Iimgui/backends -Iimgui/misc/cpp
 
+
+LDFLAGS = -ldl -lpthread
 LibsFlags = `pkg-config --libs glfw3 vulkan`
 
 compiler=clang++
@@ -29,18 +33,30 @@ src = src/app.cpp \
 	src/lve_game_object.cpp \
 	src/lve_buffer.cpp \
 	src/lve_descriptors.cpp\
+	src/gui.cpp\
 	src/keyboard_movement_controller.cpp \
 	src/main.cpp
 
 obj = $(src:.cpp=.o)
 
-all: $(compiled_frag_shaders) $(compiled_vert_shaders) $(NAME)
+imguiSrc = imgui/imgui.cpp \
+imgui/imgui_demo.cpp \
+imgui/imgui_draw.cpp \
+imgui/imgui_tables.cpp \
+imgui/imgui_widgets.cpp \
+imgui/misc/cpp/imgui_stdlib.cpp \
+imgui/backends/imgui_impl_vulkan.cpp \
+imgui/backends/imgui_impl_glfw.cpp
 
-$(NAME): $(obj)
-	$(compiler) $(CFLAGS) -o $@ $^ $(LibsFlags) $(LDFLAGS)
+imguiObj = $(imguiSrc:.cpp=.o)
+
+all: $(NAME) $(compiled_frag_shaders) $(compiled_vert_shaders)
+
+$(NAME): $(obj) $(imguiObj)
+	$(compiler) $(CFLAGS) $(SRCFLAGS) $(VENDORSFLAGS) $(IMGUIFLAGS) -o $@ $^ $(LibsFlags) $(LDFLAGS)
 
 %.o: %.cpp
-	$(compiler) $(CFLAGS) -c -o $@ $<
+	$(compiler) $(CFLAGS) $(SRCFLAGS) $(VENDORSFLAGS) $(IMGUIFLAGS) -c -o $@ $<
 
 %.frag.spv: %.frag
 	glslc $< -o $@
@@ -48,7 +64,7 @@ $(NAME): $(obj)
 %.vert.spv: %.vert
 	glslc $< -o $@ 
 
-re: clean fclean all
+re: fclean all
 
 fclean: clean
 	rm -f VulkanEngine
@@ -58,4 +74,4 @@ clean:
 	rm -f $(compiled_frag_shaders)
 	rm -f $(compiled_vert_shaders)
 
-.PHONY: all $(NAME) clean fclean re
+.PHONY: all $(NAME) clean fclean re 

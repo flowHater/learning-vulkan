@@ -1,10 +1,14 @@
 #include "lve_device.hpp"
+#include "imgui_impl_vulkan.h"
+#include "lve_descriptors.hpp"
 
 // std headers
+#include <cstddef>
 #include <cstring>
 #include <iostream>
 #include <set>
 #include <unordered_set>
+#include <vulkan/vulkan_core.h>
 
 namespace lve
 {
@@ -600,6 +604,53 @@ namespace lve
         {
             throw std::runtime_error("failed to bind image memory!");
         }
+    }
+    static void check_vk_result(VkResult err)
+    {
+        if (err == 0)
+            return;
+        fprintf(stderr, "[vulkan] Error: VkResult = %d\n", err);
+        if (err < 0)
+            abort();
+    }
+
+    VkDescriptorPool LveDevice::createInitImGuiVulkan(ImGui_ImplVulkan_InitInfo& info)
+    {
+
+        VkDescriptorPool pool;
+        {
+            {
+                VkDescriptorPoolSize pool_sizes[] = {
+                    { VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1 },
+                };
+                VkDescriptorPoolCreateInfo pool_info = {};
+                pool_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+                pool_info.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
+                pool_info.maxSets = 1;
+                pool_info.poolSizeCount = (uint32_t)IM_ARRAYSIZE(pool_sizes);
+                pool_info.pPoolSizes = pool_sizes;
+                if (vkCreateDescriptorPool(device_, &pool_info, nullptr, &pool) != VK_SUCCESS)
+                {
+                    throw "vkCreateDescriptorPool";
+                }
+            }
+        }
+
+        info.Instance = instance;
+        info.PhysicalDevice = physicalDevice;
+        info.Device = device_;
+        info.QueueFamily = findPhysicalQueueFamilies().graphicsFamily;
+        info.Queue = graphicsQueue_;
+        info.PipelineCache = nullptr;
+        info.DescriptorPool = pool;
+        info.Subpass = 0;
+        info.MinImageCount = getSwapChainSupport().capabilities.minImageCount;
+        info.ImageCount = getSwapChainSupport().capabilities.minImageCount;
+        info.MSAASamples = VK_SAMPLE_COUNT_1_BIT;
+        info.Allocator = nullptr;
+        info.CheckVkResultFn = check_vk_result;
+
+        return pool;
     }
 
 } // namespace lve

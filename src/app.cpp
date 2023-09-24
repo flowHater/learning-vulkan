@@ -1,5 +1,6 @@
 #include "app.hpp"
 
+#include "imgui.h"
 #include "keyboard_movement_controller.hpp"
 #include "lve_camera.hpp"
 #include "systems/point_light_system.hpp"
@@ -64,6 +65,8 @@ namespace lve
         LveCamera camera {};
         camera.setViewDirection(glm::vec3(0.f), glm::vec3(0.5f, 0.f, 1.f));
 
+        gui.init();
+
         auto viewerObject = LveGameObject::createGameObject();
         viewerObject.transform.translation.z = -2.5f;
         KeyboardMovementController cameraController {};
@@ -73,10 +76,15 @@ namespace lve
         while (!lveWindow.shouldClose())
         {
             glfwPollEvents();
+            gui.newFrame();
 
             auto newTime = std::chrono::high_resolution_clock::now();
             float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
             currentTime = newTime;
+
+            auto frameRate = 1.0f / frameTime;
+
+            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / frameRate, frameRate);
 
             cameraController.moveInPlane(lveWindow.getWindow(), frameTime, viewerObject);
             camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
@@ -110,6 +118,8 @@ namespace lve
 
                 system.renderGameObjects(frameInfo);
                 pointLightSystem.render(frameInfo);
+
+                gui.renderFrame(commandBuffer);
 
                 lveRenderer.endSwapChainRenderPass(commandBuffer);
                 lveRenderer.endFrame();

@@ -2,3 +2,4 @@ VulkanEngine
 shaders/*.spv
 src/**/*.o
 .cache
+imgui.ini
