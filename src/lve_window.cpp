@@ -57,6 +57,8 @@ namespace lve
         glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
 
         window = glfwCreateWindow(width, height, windowName.c_str(), monitor, nullptr);
+
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glfwSetWindowUserPointer(window, this);
         glfwSetFramebufferSizeCallback(window, frameBufferResizedCallback);
     }
