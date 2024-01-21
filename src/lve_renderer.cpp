@@ -116,6 +116,7 @@ namespace lve
             lveWindow.resetIsFrameBufferResized();
 
             recreateSwapChain();
+            result = VK_SUCCESS;
         }
 
         if (result != VK_SUCCESS)
