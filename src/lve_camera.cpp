@@ -69,6 +69,28 @@ namespace lve
     {
         setViewDirection(position, target - position, up);
     }
+    /*
+    cos θ cos φ  | sin ψ sin θ cos φ − cos ψ sin φ cos ψ sin θ  | cos φ + sin ψ sin φ
+    cos θ sin φ  | sin ψ sin θ sin φ + cos ψ cos φ cos ψ sin θ  | sin φ − sin ψ cos φ
+    − sin θ      |                  sin ψ cos θ                 | cos ψ cos θ
+
+    c1 * c3  | s2 * s1 *c3 - c2 *s3 *c2 *s1  | c3 + s2 *s3
+    c1 *s3   | s2 *s1 *s3 + c2 *c3 *c2 *s1   | s3 - s2 *c3
+    − s1     |   s2 *c1                      | c2 *c1
+
+    WHY IT IS NOT THIS ??
+    void LveCamera::setViewYXZ(glm::vec3 position, glm::vec3 rotation)
+        {
+            const float c3 = glm::cos(rotation.z); // cos φ
+            const float s3 = glm::sin(rotation.z); // sin φ
+            const float c2 = glm::cos(rotation.x); // cos ψ
+            const float s2 = glm::sin(rotation.x); // sin ψ
+            const float c1 = glm::cos(rotation.y); // cos θ
+            const float s1 = glm::sin(rotation.y); // sin θ
+            const glm::vec3 u { (c1 * c3), (s2 * s1 * c3 - c2 * s3 * c2 * s1), (c3 + s2 * s3) };
+            const glm::vec3 v { (c1 * s3), (s2 * s1 * s3 + c2 * c3 * c2 * s1), (s3 - s2 * c3) };
+            const glm::vec3 w { (-s1), (s2 * c1), (c2 * c1) };
+    */
 
     void LveCamera::setViewYXZ(glm::vec3 position, glm::vec3 rotation)
     {
