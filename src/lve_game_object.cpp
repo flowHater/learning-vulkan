@@ -1,67 +1,26 @@
 #include "lve_game_object.hpp"
 
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/fwd.hpp>
+#include <glm/gtx/euler_angles.hpp>
+#include <glm/gtx/io.hpp>
+#include <iostream>
+
 namespace lve
 {
 
     glm::mat4 TransformComponent::mat4()
     {
-        const float c3 = glm::cos(rotation.z);
-        const float s3 = glm::sin(rotation.z);
-        const float c2 = glm::cos(rotation.x);
-        const float s2 = glm::sin(rotation.x);
-        const float c1 = glm::cos(rotation.y);
-        const float s1 = glm::sin(rotation.y);
-
-        return glm::mat4 {
-            {
-                scale.x * (c1 * c3 + s1 * s2 * s3),
-                scale.x * (c2 * s3),
-                scale.x * (c1 * s2 * s3 - c3 * s1),
-                0.0f,
-            },
-            {
-                scale.y * (c3 * s1 * s2 - c1 * s3),
-                scale.y * (c2 * c3),
-                scale.y * (c1 * c3 * s2 + s1 * s3),
-                0.0f,
-            },
-            {
-                scale.z * (c2 * s1),
-                scale.z * (-s2),
-                scale.z * (c1 * c2),
-                0.0f,
-            },
-            { translation.x, translation.y, translation.z, 1.0f }
-        };
+        auto transform = glm::translate(glm::mat4 { 1.f }, translation);
+        transform = glm::eulerAngleYXZ(rotation.y, rotation.x, rotation.z) * transform;
+        transform = glm::scale(transform, scale);
+        std::cout << transform << std::endl;
+        return transform;
     }
 
     glm::mat3 TransformComponent::normalMatrix()
     {
-        const float c3 = glm::cos(rotation.z);
-        const float s3 = glm::sin(rotation.z);
-        const float c2 = glm::cos(rotation.x);
-        const float s2 = glm::sin(rotation.x);
-        const float c1 = glm::cos(rotation.y);
-        const float s1 = glm::sin(rotation.y);
-        const glm::vec3 invScale = 1.0f / scale;
-
-        return glm::mat3 {
-            {
-                invScale.x * (c1 * c3 + s1 * s2 * s3),
-                invScale.x * (c2 * s3),
-                invScale.x * (c1 * s2 * s3 - c3 * s1),
-            },
-            {
-                invScale.y * (c3 * s1 * s2 - c1 * s3),
-                invScale.y * (c2 * c3),
-                invScale.y * (c1 * c3 * s2 + s1 * s3),
-            },
-            {
-                invScale.z * (c2 * s1),
-                invScale.z * (-s2),
-                invScale.z * (c1 * c2),
-            },
-        };
+        return glm::translate(glm::scale(glm::eulerAngleYXZ(rotation.y, rotation.x, rotation.z), 1.0f / scale), translation);
     }
 
     LveGameObject LveGameObject::makePointLight(float intensity, float radius, glm::vec3 color)
