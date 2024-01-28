@@ -7,7 +7,6 @@
 
 ## TODO:
 
-- Build System ([Meson](https://mesonbuild.com))
 - Génération du terrain et du monde Part 1
 - Entity system À faire
 - Le système d'animation Part 1
@@ -16,3 +15,4 @@
 - Audio Part 1 ([rtaudio](https://github.com/thestk/rtaudio))
 - Audio À faire Énorme sujet pour avoir la spacialisation
 - Le système d'animation Part 2
+- Build System ([Meson](https://mesonbuild.com))
