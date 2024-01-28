@@ -69,6 +69,9 @@ re: fclean all
 fclean: clean
 	rm -f VulkanEngine
 
+run: all
+	./$(NAME)
+
 clean:
 	rm -f $(obj)
 	rm -f $(compiled_frag_shaders)
