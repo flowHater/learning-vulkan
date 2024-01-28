@@ -3,10 +3,10 @@
 - Window/Inputs ([GLFW](https://github.com/glfw/glfw))
 - RenderApi ([Vulkan](https://www.vulkan.org/))
 - Interface part 1 ([Imgui](https://github.com/ocornut/imgui))
+- Gestion de la souris
 
 ## TODO:
 
-- Gestion de la souris
 - Build System ([Meson](https://mesonbuild.com))
 - Génération du terrain et du monde Part 1
 - Entity system À faire

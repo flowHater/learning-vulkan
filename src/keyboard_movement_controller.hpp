@@ -1,6 +1,7 @@
 #pragma once
-#include "lve_window.hpp"
 #include "lve_game_object.hpp"
+#include "lve_window.hpp"
+#include <GLFW/glfw3.h>
 
 namespace lve
 {
@@ -19,13 +20,19 @@ namespace lve
             int lookRight = GLFW_KEY_RIGHT;
             int lookUp = GLFW_KEY_UP;
             int lookDown = GLFW_KEY_DOWN;
+
+            int escape = GLFW_KEY_ESCAPE;
         };
+        void controll(GLFWwindow* window, float d, LveGameObject& gameObject);
 
-        void moveInPlane(GLFWwindow *window, float d, LveGameObject &gameObject);
+        KeyMappings keys {};
+        float moveSpeed { 3.0f };
+        float lookSpeed { 2.5f };
 
-        KeyMappings keys{};
-        float moveSpeed{3.0f};
-        float lookSpeed{1.5f};
+    private:
+        void moveInPlane(GLFWwindow* window, float d, LveGameObject& gameObject);
+        void mouse(GLFWwindow* window, float d, LveGameObject& gameObject);
+        void escape(GLFWwindow* window, int status);
     };
 
 }

@@ -3,8 +3,8 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
-#include <string>
 #include <stdexcept>
+#include <string>
 
 namespace lve
 {
@@ -14,14 +14,14 @@ namespace lve
         LveWindow(int w, int h, std::string name);
         ~LveWindow();
 
-        LveWindow(const LveWindow &) = delete;
-        LveWindow &operator=(const LveWindow &) = delete;
+        LveWindow(const LveWindow&) = delete;
+        LveWindow& operator=(const LveWindow&) = delete;
 
-        bool shouldClose() { return glfwWindowShouldClose(window) || glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS; }
-        VkExtent2D getExtend() { return {static_cast<uint32_t>(width), static_cast<uint32_t>(height)}; }
+        bool shouldClose() { return glfwWindowShouldClose(window) || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS; }
+        VkExtent2D getExtend() { return { static_cast<uint32_t>(width), static_cast<uint32_t>(height) }; }
         bool wasWindowResized() { return isFrameBufferResized; }
         void resetIsFrameBufferResized() { isFrameBufferResized = false; }
-        GLFWwindow *getWindow() const { return window; }
+        GLFWwindow* getWindow() const { return window; }
 
         void captureTheMouse() const
         {
@@ -37,11 +37,11 @@ namespace lve
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         };
 
-        void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
+        void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
 
     private:
         void initWindow();
-        static void frameBufferResizedCallback(GLFWwindow *window, int width, int height);
+        static void frameBufferResizedCallback(GLFWwindow* window, int width, int height);
 
         int width;
         int height;
@@ -49,6 +49,6 @@ namespace lve
 
         std::string windowName;
 
-        GLFWwindow *window;
+        GLFWwindow* window;
     };
 }

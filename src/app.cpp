@@ -86,7 +86,7 @@ namespace lve
 
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / frameRate, frameRate);
 
-            cameraController.moveInPlane(lveWindow.getWindow(), frameTime, viewerObject);
+            cameraController.controll(lveWindow.getWindow(), frameTime, viewerObject);
             camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
 
             float aspect = lveRenderer.getAspectRatio();

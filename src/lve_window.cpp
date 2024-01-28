@@ -46,7 +46,6 @@ namespace lve
         glfwWindowHint(GLFW_RED_BITS, mode->redBits);
         glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
         glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-        glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
@@ -58,7 +57,10 @@ namespace lve
 
         window = glfwCreateWindow(width, height, windowName.c_str(), monitor, nullptr);
 
+        if (glfwRawMouseMotionSupported())
+            glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
         glfwSetWindowUserPointer(window, this);
         glfwSetFramebufferSizeCallback(window, frameBufferResizedCallback);
     }
