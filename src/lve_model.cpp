@@ -47,7 +47,7 @@ namespace lve
         Builder builder {};
         builder.loadModel(filepath);
 
-        std::cout << "builder.vertices.size() = " << builder.vertices.size() << std::endl;
+        std::cout << filepath << ".vertices.size() = " << builder.vertices.size() << std::endl;
         return std::make_unique<LveModel>(device, builder);
     }
 
